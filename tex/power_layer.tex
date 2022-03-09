@@ -1,41 +1,68 @@
-In this section, the layer is described in terms of the hardware and software design. Specific implementation details, such as hardware components, programming languages, software dependencies, operating systems, etc. should be discussed. Any unnecessary items can be omitted (for example, a pure software module without any specific hardware should not include a hardware subsection). The organization, titles, and content of the sections below can be modified as necessary for the project.
+Each electrical component has a specific power requirement and this layer is responsible for providing that power.
 
 \subsection{Layer Hardware}
-A description of any involved hardware components for the layer. For example, if each subsystem is a software process running on an embedded computer, discuss the specifics of that device here. Do not list a hardware component that only exists at the subsystem level (include it in the following sections).
+The Turning Board includes an ER 36 volt battery and Songhe LM2596S buck converters. 
 
 \subsection{Layer Operating System}
-A description of any operating systems required by the layer.
+No operating system is used in this layer.
 
 \subsection{Layer Software Dependencies}
-A description of any software dependencies (libraries, frameworks, etc) required by the layer.
+No software is used in this layer.
 
 \subsection{Subsystem 1}
-Describe at a high level the purpose and basic design of this subsystem. Is it a piece of hardware, a class, a web service, or something else? Note that each of the subsystem items below are meant to be specific to that subsystem and not a repeat of anything discussed above for the overall layer.
+This module consists of a Li-Po battery which provides power to a Buck Converter. It is an ER 36 volt battery with a 30A current output.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  BE SURE TO UPDATE THE IMAGE CAPTION
 \begin{figure}[h!]
 	\centering
- 	\includegraphics[width=0.60\textwidth]{images/Power.png} % Image
- \caption{Example subsystem description diagram} % Caption
+ 	\includegraphics[width=0.60\textwidth]{images/Bat.png} % Image
+ \caption{Battery Subsystem in Power Layer} % Caption
 \end{figure}
 
 \subsubsection{Subsystem Hardware}
-A description of any involved hardware components for the subsystem.
+The battery should will output around 36 volts.
 
 \subsubsection{Subsystem Operating System}
-A description of any operating systems required by the subsystem.
+No operating system is used in this subsystem.
 
 \subsubsection{Subsystem Software Dependencies}
-A description of any software dependencies (libraries, frameworks, design software for mechanical parts or circuits, etc) required by the subsystem.
+No software is used in this subsystem
 
 \subsubsection{Subsystem Programming Languages}
-A description of any programming languages used by the subsystem.
+No programming languages are used in this subsystem.
 
 \subsubsection{Subsystem Data Structures}
-A description of any classes or other data structures that are worth discussing for the subsystem. For example, data being transmitted from a microcontroller to a PC via USB should be first be assembled into packets. What is the structure of the packets?
+No data structures are used in this subsystem.
 
 \subsubsection{Subsystem Data Processing}
-A description of any algorithms or processing strategies that are worth discussing for the subsystem. If you are implementing a well-known algorithm, list it. If it is something unique to this project, discuss it in greater detail.
+No algorithms are used in this subsystem.
 
+\subsection{Subsystem 2}
+The entire module consists of a Li-Po battery which provides power to a Buck Converter which then powers the rest of the system. 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  BE SURE TO UPDATE THE IMAGE CAPTION
+\begin{figure}[h!]
+	\centering
+ 	\includegraphics[width=0.60\textwidth]{images/Buck.png} % Image
+ \caption{Buck Converter Subsystem in Power Layer} % Caption
+\end{figure}
+
+\subsubsection{Subsystem Hardware}
+With an input voltage of 36 volts from the battery, the buck converters should be able to output between 1.25V \textasciitilde 34V continuously.
+
+\subsubsection{Subsystem Operating System}
+No operating system is used in this subsystem.
+
+\subsubsection{Subsystem Software Dependencies}
+No software is used in this subsystem
+
+\subsubsection{Subsystem Programming Languages}
+No programming languages are used in this subsystem.
+
+\subsubsection{Subsystem Data Structures}
+No data structures are used in this subsystem.
+
+\subsubsection{Subsystem Data Processing}
+No algorithms are used in this subsystem.
