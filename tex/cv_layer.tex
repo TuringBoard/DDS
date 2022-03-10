@@ -1,41 +1,49 @@
-In this section, the layer is described in terms of the hardware and software design. Specific implementation details, such as hardware components, programming languages, software dependencies, operating systems, etc. should be discussed. Any unnecessary items can be omitted (for example, a pure software module without any specific hardware should not include a hardware subsection). The organization, titles, and content of the sections below can be modified as necessary for the project.
-
+This layer is the heart of the core autonomous functionalities of the Turing Board. We use computer
+vision and depth imagery to determine the board’s surroundings and calculate the best path to move
+forward. The user will have, strapped around their ankle, an anklet-like contraption consisting of a
+pattern of ArUco markers for the Follow Along feature. This layer tracks the movement of the user
+through the anklet to determine how to instruct the combination of motors to move so as to follow the
+user at an appropriate pace. It is also responsible for detecting possible obstacles when operating on its
+own to find the user as part of the Summon feature.
 \subsection{Layer Hardware}
-A description of any involved hardware components for the layer. For example, if each subsystem is a software process running on an embedded computer, discuss the specifics of that device here. Do not list a hardware component that only exists at the subsystem level (include it in the following sections).
+The required hardware components include the NVIDIA Jetson TX2 as the main compute module and the Intel RealSense  D432 Depth Camera.
 
 \subsection{Layer Operating System}
-A description of any operating systems required by the layer.
+The NVIDIA Jetson TX2 is running Ubuntu 18.04. 
 
 \subsection{Layer Software Dependencies}
-A description of any software dependencies (libraries, frameworks, etc) required by the layer.
+This layer requires the OpenCV v4.2.2 or higher compiled with cuDNN enabled. A more detailed and exhaustive list can be obtained from. https://github.com/TuringBoard/turing-board-vision/blob/main/Configuring%20the%20NVIDIA%20Jetson%20TX2.md.
+% I know the text doesn't wrap to the next line for the link. Latex is stupid. I am not pressed about it. - Sahaj 
 
-\subsection{Subsystem 1}
-Describe at a high level the purpose and basic design of this subsystem. Is it a piece of hardware, a class, a web service, or something else? Note that each of the subsystem items below are meant to be specific to that subsystem and not a repeat of anything discussed above for the overall layer.
+\subsection{RGB IMAGERY SUBSYSTEM}
+RGB Imagery of the front of the board is used as input in making various position specific calculations pertaining to navigation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  BE SURE TO UPDATE THE IMAGE CAPTION
 \begin{figure}[h!]
 	\centering
  	\includegraphics[width=0.60\textwidth]{images/CV.png} % Image
- \caption{Example subsystem description diagram} % Caption
+ \caption{CV Layer Subsystem} % Caption
 \end{figure}
 
 \subsubsection{Subsystem Hardware}
-A description of any involved hardware components for the subsystem.
+This subsystem requires the NVIDIA Jetson TX2 and the Intel RealSense  D432 Depth Camera.
 
 \subsubsection{Subsystem Operating System}
-A description of any operating systems required by the subsystem.
+Ubuntu 18.04.  
 
 \subsubsection{Subsystem Software Dependencies}
-A description of any software dependencies (libraries, frameworks, design software for mechanical parts or circuits, etc) required by the subsystem.
+This layer requires the OpenCV v4.2.2 or higher compiled with cuDNN enabled. A more detailed and exhaustive list can be obtained from. https://github.com/TuringBoard/turing-board-vision/blob/main/Configuring%20the%20NVIDIA%20Jetson%20TX2.md.
+% I know the text doesn't wrap to the next line for the link. Latex is stupid. I am not pressed about it. - Sahaj 
+
 
 \subsubsection{Subsystem Programming Languages}
-A description of any programming languages used by the subsystem.
+Python 3.x.
 
 \subsubsection{Subsystem Data Structures}
-A description of any classes or other data structures that are worth discussing for the subsystem. For example, data being transmitted from a microcontroller to a PC via USB should be first be assembled into packets. What is the structure of the packets?
+Arrays, HashMaps, Graphs, Trees.
 
 \subsubsection{Subsystem Data Processing}
-A description of any algorithms or processing strategies that are worth discussing for the subsystem. If you are implementing a well-known algorithm, list it. If it is something unique to this project, discuss it in greater detail.
+SIFT, RANSAC, Canny Edge Detection.
 
 
