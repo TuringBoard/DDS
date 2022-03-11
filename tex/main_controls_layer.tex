@@ -1,41 +1,101 @@
-In this section, the layer is described in terms of the hardware and software design. Specific implementation details, such as hardware components, programming languages, software dependencies, operating systems, etc. should be discussed. Any unnecessary items can be omitted (for example, a pure software module without any specific hardware should not include a hardware subsection). The organization, titles, and content of the sections below can be modified as necessary for the project.
+The controls layer is responsible for binding all modules of the Turing Board to be part of the same system. All data coming in is intercepted by this layer and forwarded to the respective modules responsible for processing the forwarded data.
 
 \subsection{Layer Hardware}
-A description of any involved hardware components for the layer. For example, if each subsystem is a software process running on an embedded computer, discuss the specifics of that device here. Do not list a hardware component that only exists at the subsystem level (include it in the following sections).
+The hardware involved in the Nvidia Jetson TX2 which is responsible for running the controls code.
 
 \subsection{Layer Operating System}
-A description of any operating systems required by the layer.
+The Layer makes use of the Linux operating system to run applications such as the control code.
 
 \subsection{Layer Software Dependencies}
-A description of any software dependencies (libraries, frameworks, etc) required by the layer.
+Python Dependencies
+\begin{itemize}
+    \item PyVESC
+    \item Pyrebase
+    \item Pyserial
+    \item Pycrc
+    \item Threading
+\end{itemize}
 
-\subsection{Subsystem 1}
-Describe at a high level the purpose and basic design of this subsystem. Is it a piece of hardware, a class, a web service, or something else? Note that each of the subsystem items below are meant to be specific to that subsystem and not a repeat of anything discussed above for the overall layer.
+\subsection{Jetson TX2 Subsystem}
+The Jetston TX2 is the main computing power for the Turing board. It is responsible for processing all input from the remote control and computer vision. From there, it is responsible for sending the appropriate signals to the peripherals.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  BE SURE TO UPDATE THE IMAGE CAPTION
 \begin{figure}[h!]
 	\centering
- 	\includegraphics[width=0.60\textwidth]{images/MC.png} % Image
- \caption{Example subsystem description diagram} % Caption
+ 	\includegraphics[width=0.60\textwidth]{images/Jetson.png}
+ \caption{Jetson TX2 Subsystem in Main Controls Layer}
 \end{figure}
 
 \subsubsection{Subsystem Hardware}
-A description of any involved hardware components for the subsystem.
+The Jetson TX2 connects with the JetPack 4.6 on a host machine. 
 
 \subsubsection{Subsystem Operating System}
-A description of any operating systems required by the subsystem.
+The Jetson TX2 is flashed with Ubuntu 18.04 LTS.
 
 \subsubsection{Subsystem Software Dependencies}
-A description of any software dependencies (libraries, frameworks, design software for mechanical parts or circuits, etc) required by the subsystem.
+The install of Ubuntu 18.04 installs the following items:
+\begin{itemize}
+    \item cuDNN 8.2.1
+    \item CUDA 10.2
+    \item OpenCV4.1.1 - which will be removed later since OpenCV must be complied from source to take advantage of the CUDA cores
+\end{itemize}
 
 \subsubsection{Subsystem Programming Languages}
-A description of any programming languages used by the subsystem.
+The Jetson TX2 uses Python as its programming language.
 
 \subsubsection{Subsystem Data Structures}
-A description of any classes or other data structures that are worth discussing for the subsystem. For example, data being transmitted from a microcontroller to a PC via USB should be first be assembled into packets. What is the structure of the packets?
+Classes
+\begin{itemize}
+    \item Controls
+    \begin{itemize}
+        \item Responsible for running the controls code.
+    \end{itemize}
+    \item Serial Communication
+    \begin{itemize}
+        \item Establishes connection with the microcontroller.
+    \end{itemize}
+\end{itemize}
 
 \subsubsection{Subsystem Data Processing}
-A description of any algorithms or processing strategies that are worth discussing for the subsystem. If you are implementing a well-known algorithm, list it. If it is something unique to this project, discuss it in greater detail.
+After fetching data from the database, the Jetson TX2 will process the data first to an extent. Since data coming in will be floating point values, it first needs to be translated into value which the microcontroller can understand. So, the entire range of data from the remote control app is taken and the required data is mapped from 0-255 which is then forwarded to the microcontroller which causes the wheels to change speed. As part of the same data packet, angle data from the controls code is also sent to the microcontroller which aids in turning the turning mechanism to a specific angle with respect to the turning mechanisms origin. Any data such as weight values if someone is standing on the long board is received back in the same data format (0-255) which gets translated to weight values inside of the controls code.
 
+\subsection{Real-Time Database Subsystem}
+There are three main components of project which calls for this piece of software which must all be non-blocking in nature to ensure the entire system stays responsive.
+\begin{itemize}
+    \item Reading data from the microcontroller.
+    \item Forwarding data to the microcontroller.
+    \item Fetching data from the Firebase Real-time database.
+\end{itemize}
 
+\begin{figure}[h!]
+	\centering
+ 	\includegraphics[width=0.60\textwidth]{images/RTD.png}
+ \caption{Real-time Database Subsystem in Main Controls Layer}
+\end{figure}
+
+\subsubsection{Subsystem Hardware}
+The real-time database subsystem does not consist of explicit hardware. All work is done through software to communicate information.
+
+\subsubsection{Subsystem Operating System}
+The real-time database subsystem does not make use of an underlying operating system. The layer makes use of the Linux operating system.
+
+\subsubsection{Subsystem Software Dependencies}
+Python Dependencies
+\begin{itemize}
+    \item PyVESC
+    \item Pyrebase
+    \item Pyserial
+    \item Pycrc
+    \item Threading
+\end{itemize}
+
+\subsubsection{Subsystem Programming Languages}
+Python
+\begin{itemize}
+    \item Used for the main controls system.
+\end{itemize}
+
+\subsubsection{Subsystem Data Structures}
+The real-time data base fetching process utilizes HashMaps to send and receive data. 
+
+\subsubsection{Subsystem Data Processing}
+As data is updated in the database, it is fetched and brought to the Jetson TX2 for processing. For more information on the process within the Jetson, see section 4.4.6.
