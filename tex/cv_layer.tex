@@ -15,14 +15,15 @@ The NVIDIA Jetson TX2 is running Ubuntu 18.04.
 This layer requires the OpenCV v4.2.2 or higher compiled with cuDNN enabled. A more detailed and exhaustive list can be obtained from. https://github.com/TuringBoard/turing-board-vision/blob/main/Configuring%20the%20NVIDIA%20Jetson%20TX2.md.
 % I know the text doesn't wrap to the next line for the link. Latex is stupid. I am not pressed about it. - Sahaj 
 
-\subsection{RGB IMAGERY SUBSYSTEM}
+\subsection{RGB Imagery Subsystem
+}
 RGB Imagery of the front of the board is used as input in making various position specific calculations pertaining to navigation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  BE SURE TO UPDATE THE IMAGE CAPTION
 \begin{figure}[h!]
 	\centering
- 	\includegraphics[width=0.60\textwidth]{images/CV.png} % Image
+ 	\includegraphics[width=0.60\textwidth]{DDS/images/CV_RGB.png} % Image
  \caption{CV Layer Subsystem} % Caption
 \end{figure}
 
@@ -45,5 +46,43 @@ Arrays, HashMaps, Graphs, Trees.
 
 \subsubsection{Subsystem Data Processing}
 SIFT, RANSAC, Canny Edge Detection.
+
+
+
+
+
+
+
+\subsection{Stereo Imagery Subsystem}
+Stereo and Infrared Imagery of the front of the board is used as input in making various depth specific calculations pertaining to navigation.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  BE SURE TO UPDATE THE IMAGE CAPTION
+\begin{figure}[h!]
+	\centering
+ 	\includegraphics[width=0.60\textwidth]{DDS/images/CV_SIR.png} % Image
+ \caption{CV Layer Subsystem} % Caption
+\end{figure}
+
+\subsubsection{Subsystem Hardware}
+This subsystem requires the Intel RealSense  D432 Depth Camera.
+
+\subsubsection{Subsystem Operating System}
+N/A 
+
+\subsubsection{Subsystem Software Dependencies}
+pyrealsense: https://pypi.org/project/pyrealsense
+
+librealsense: https://github.com/IntelRealSense/librealsense
+
+
+\subsubsection{Subsystem Programming Languages}
+Python 3.x.
+
+\subsubsection{Subsystem Data Structures}
+Arrays, HashMaps, Graphs, Trees.
+
+\subsubsection{Subsystem Data Processing}
+SIFT, RANSAC.
 
 
