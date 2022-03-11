@@ -1,4 +1,4 @@
-This layer focuses on the systems needed to electronically propel the board and the systems needed to turn while in autonomous mode. The Jetson TX2 will be providing commands to an electronic speed controller to drive two brushless DC motors embedded into the rear truck. The front truck will be mounted onto a geared turning mechanism that will be rotated by a matching bevel gear using a stepper motor. The turning mechanism will be kept in place by two solenoids. To ensure that the turning mechanism is locked, the solenoid plunger will be monitored by an optical sensor. A micro-controller will be used to control the commutation of the motor, to engage the solenoids and to monitor the optical sensor.
+This layer focuses on the systems needed to electronically propel the board and the systems needed to turn while in autonomous mode. The Jetson TX2 will be providing commands to an electronic speed controller to drive two brushless DC motors embedded into the rear truck. The front truck will be mounted onto a geared turning mechanism which will be rotated by a matching bevel gear using a stepper motor. The turning mechanism will be kept in place by two solenoids. To ensure that the turning mechanism is locked, the solenoid plunger will be monitored by an optical sensor. A micro-controller will be used to control the commutation of the motor, to engage the solenoids and to monitor the optical sensor.
 
 \begin{figure}[h!]
 	\centering
@@ -13,7 +13,7 @@ A Tiva TM4C123GH6PM micro-controller is used to manage lower level systems like 
 A custom Real Time Operating System (RTOS) developed for this project.
 
 \subsection{Layer Software Dependencies}
-The majority of software libraries were created internally for use with this project. Clock library sets the micro-controller to operate with a 16MHz crystal at a clock speed of 40MHz. GPIO library provides back end register handling to control general purpose input and output pins. Shell library provides the ability for user input and instruction handling. Uart0 library provides the ability to communicate with the micro-controller using the on board usb port. Uartcom library is used for serial communication between the micro-controller and the Jetson TX2. Wait library provides a function to wait microseconds. Helperfunctions is a library used for parsing and other back end functions. Kernel library is used for memory protection.
+The majority of software libraries were created internally for use with this project. Clock library sets the micro-controller to operate with a 16MHz crystal at a clock speed of 40MHz. GPIO library provides back-end register handling to control general purpose input and output pins. Shell library provides the ability for user input and instruction handling. UART0 library provides the ability to communicate with the micro-controller using the on-board USB port. Uartcom library is used for serial communication between the micro-controller and the Jetson TX2. Wait library provides a function to wait microseconds. Helperfunctions is a library used for parsing and other back-end functions. Kernel library is used for memory protection.
 
 \subsection{Electronic Speed Controller}
 The Electronic Speed Controller (ESC) is a hardware component that regulates the three-phase current to the brushless DC motors embedded in the rear truck.
@@ -39,7 +39,7 @@ The Jetson TX2 is responsible for sending commands directly to the ESC through s
 Python to receive commands from the Jetson TX2. No Python running on the ESC.
 
 \subsubsection{Subsystem Data Structures}
-The data structure used in the ESC library is proprietary and belong to the VESC project. 
+The data structure used in the ESC library is proprietary and belongs to the VESC project. 
 
 \subsubsection{Subsystem Data Processing}
 N/A
@@ -74,7 +74,7 @@ N/A
 N/A
 
 \subsection{Stepper Motor}
-A stepper motor is mounted on the underside of the board to interact with the turning mechanism. A bevel gear on the stepper motor shaft is connected to a matching gear on the turning mechanism that allows the board to rotate up to thirty-five degrees left or right of center.
+A stepper motor is mounted on the underside of the board to interact with the turning mechanism. A bevel gear on the stepper motor shaft is connected to a matching gear on the turning mechanism which allows the board to rotate up to thirty-five degrees left or right of center.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  BE SURE TO UPDATE THE IMAGE CAPTION
@@ -85,7 +85,7 @@ A stepper motor is mounted on the underside of the board to interact with the tu
 \end{figure}
 
 \subsubsection{Subsystem Hardware}
-The Nema seventeen stepper motor is a hardware component that is driven by a DRV8825 motor driver. The motor is wired in a four wire configuration that operates off of twelve volts.
+The NEMA-17 stepper motor is a hardware component that is driven by a DRV8825 motor driver. The motor is wired in a four wire configuration that operates off of twelve volts.
 
 \subsubsection{Subsystem Operating System}
 N/A
@@ -103,7 +103,7 @@ The DRV8825 steps the motor on the rising edge of a square wave. The time betwee
 N/A
 
 \subsection{Solenoid}
-A solenoid is used to secure the turning mechanism so that the wheels are oriented in their natural position. Applying power to the solenoid will pull the plunger out of the turning mechanism, allowing it to freely rotate as needed.
+A solenoid is used to secure the turning mechanism so that the wheels are oriented in their neutral position. Applying power to the solenoid will pull the plunger out of the turning mechanism, allowing it to freely rotate as needed.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  BE SURE TO UPDATE THE IMAGE CAPTION
@@ -114,7 +114,7 @@ A solenoid is used to secure the turning mechanism so that the wheels are orient
 \end{figure}
 
 \subsubsection{Subsystem Hardware}
-The two solenoids are powered with 12V. A MOSFET will be configured to act as switch, allowing power to flow through the solenoid.
+The two solenoids are powered with 12V. A MOSFET will be configured to act as a switch, allowing power to flow through the solenoid.
 
 \subsubsection{Subsystem Operating System}
 N/A
@@ -132,7 +132,7 @@ With a MOSFET, the only data structure is toggling the GPIO pin on or off. This 
 N/A
 
 \subsection{Optical Sensor}
-An optical sensor will be used to determine if a solenoid has been fully engaged. When the solenoid has power applied a plunger will be pulled out of the turning mechanism and the displaced shaft length will present at the rear of the solenoid. The optical sensor will be placed so that while engaged, the plunger at the back of the solenoid will break the optical beam of the sensor.
+An optical sensor will be used to determine if a solenoid has been fully engaged. When the solenoid has power applied, a plunger will be pulled out of the turning mechanism and the displaced shaft length will present at the rear of the solenoid. The optical sensor will be placed so that while engaged, the plunger at the back of the solenoid will break the optical beam of the sensor.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  BE SURE TO UPDATE THE IMAGE CAPTION
@@ -149,7 +149,7 @@ Two optical sensors wired between ground and a GPIO input pin.
 N/A
 
 \subsubsection{Subsystem Software Dependencies}
-A optical sensor library has been created to use with the RTOS code on the micro-controller.
+An optical sensor library has been created to use with the RTOS code on the micro-controller.
 
 \subsubsection{Subsystem Programming Languages}
 C is used for the optical sensor library that is being run on the micro-controller.
