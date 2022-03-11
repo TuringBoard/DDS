@@ -1,84 +1,156 @@
 The sole purpose of this layer is to control the Turning Board. This layer is directly accessible to the user. This remote is in the form of an android app or IOS app. This layer communicates with the Main Control layer adequately to propagate user commands. Some features included in this layer include: user authentication, and user ride data analysis.
 
-% is controlled directly by the user. It takes the form of an app that sends data to the Main Control layer for the appropriate signals to be sent to the other layers. The app requires an authentication process to log into it. It will also provide the user with ride data analysis after a trip on the board is completed.This app is available on iOS and Android.
-
-\subsection{Front-end UI and Main Control communication }
-The front-end UI and the Main Control layer, currently, communicate via internet. With a Firebase back-end set up, the UI interfaces with the back-end, which in turn propagates data to the Main Control. The back-end the system is using consists of a real-time NoSQL database. The Main Control, in turn, retrieves the appropriate data and passes it on to the corresponding subsystem.
+\subsection{Layer Hardware}
+The remote controller for the Turing board is an app, which can be a acquired from an app store. This app runs on a smart phone capable to downloading apps.
 
 
+\subsection{Layer Operating System}
+The remote app can run on Android or IOS.
+
+\subsection{Layer Software Dependencies}
+The UI is connected to a Firebase back-end, which includes of a real-time NoSQL database
+
+\subsection{Front-end UI and Main Control communication}
+The front-end UI is what the user sees on the Turing board's app. The app is used as a remote controller for the Turing board. This is where different riding modes are selected. It is also where authentication and data analysis happens. The app communicates with our firebase back-end which in turn communicates with the control layer, our embedded computer. The control layer then propages the commands to the appropriate hardware.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  BE SURE TO UPDATE THE IMAGE CAPTION
 \begin{figure}[h!]
 	\centering
- 	\includegraphics[width=0.60\textwidth]{DDS/images/UIJetsonCom.png}
- \caption{Example subsystem description diagram}
+ 	\includegraphics[width=0.60\textwidth]{DDS/images/UIJetsonCom.png} % Image
+ \caption{Front-end UI and Main Control communication diagram} % Caption
 \end{figure}
 
-\subsubsection{Assumptions}
-It is assumed that the latency between data posting by the front-end and data retrieval by the Main Control is almost negligible. It is also assumed the user is always connected to the internet while the Turing board is active.
+\subsubsection{Subsystem Hardware}
+This system is accessed through the remote controller app, which requires a smartphone to run on.
 
-\subsubsection{Responsibilities}
-The UI must present the user with an easy to user interface. The UI must the post the component's data to a real-time database as soon as the state of a component changes.
+\subsubsection{Subsystem Operating System}
+Android or IOS is required to run the controller app
 
-\subsubsection{Subsystem Interfaces}
-Each of the inputs and outputs for the subsystem are defined here.
-\begin {table}[H]
-\caption {Subsystem interfaces} 
-\begin{center}
-    \begin{tabular}{ | p{1cm} | p{6cm} | p{3cm} | p{3cm} |}
-    \hline
-    ID & Description & Inputs & Outputs \\ \hline
-    \#1 & Giving the UI a command & \pbox{3cm}{User command} & \pbox{3cm}{raw data to a database}  \\ \hline
-    \end{tabular}
-\end{center}
-\end{table}
+\subsubsection{Subsystem Software Dependencies}
+The front-end UI and Main Control communication subsystem depends on Wifi and a firebase back-end.
+
+\subsubsection{Subsystem Programming Languages}
+React-native and JavaScript 
+
+\subsubsection{Subsystem Data Structures}
+The data from the Front-end UI and Main Control communication subsystem is received and sent to the back end as JSON objects
+
+\subsubsection{Subsystem Data Processing}
+N/A
+
+\subsection{Ride Data Analysis}
+This sub layer of the remote controller layer will be information provided to the user after a ride. This information may include average speed of the ride, the duration of the ride, and the distance traveled. This information will be displayed on the app.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  BE SURE TO UPDATE THE IMAGE CAPTION
+\begin{figure}[h!]
+	\centering
+ 	\includegraphics[width=0.60\textwidth]{images/subsystem} % Image
+ \caption{Ride Data Analysis subsystem diagram} % Caption
+\end{figure}
+
+\subsubsection{Subsystem Hardware}
+N/A
+
+\subsubsection{Subsystem Operating System}
+This feature is within the controller app, so it runs on Android and IOS
+
+\subsubsection{Subsystem Software Dependencies}
+The Ride Data Analysis subsystem depends on the controller app, and on a firebase NoSQL database.
+
+\subsubsection{Subsystem Programming Languages}
+React and JavaScript 
+
+\subsubsection{Subsystem Data Structures}
+The data from the Ride Data Analysis subsystem is received from the back-end as JSON objects
+
+\subsubsection{Subsystem Data Processing}
+N/A
 
 \subsection{Authentication}
 When the user attempt to log into the app or sign up, the UI parses the login/signup information (name, email, password, etc.) the parsed data is then sent to a Firebase authentification API. The API in turn forwards a token to the app confirming status of the attempt, either successful or unsuccessful login/sign up. The app then uses the data to render the UI accordingly.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  BE SURE TO UPDATE THE IMAGE CAPTION
 \begin{figure}[h!]
 	\centering
- 	\includegraphics[width=0.60\textwidth]{DDS/images/Authentication.png}
- \caption{Example subsystem description diagram}
+ 	\includegraphics[width=0.60\textwidth]{images/subsystem} % Image
+ \caption{Authentication subsystem diagram} % Caption
 \end{figure}
 
-\subsubsection{Responsibilities}
-This feature makes sure a user has access to the UI controller or not. It makes sure the right data will be sent to the right Turing board.
+\subsubsection{Subsystem Hardware}
+N/A
 
-\subsubsection{Subsystem Interfaces}
-Each of the inputs and outputs for the subsystem are defined here.
-\begin {table}[H]
-\caption {Subsystem interfaces} 
-\begin{center}
-    \begin{tabular}{ | p{1cm} | p{6cm} | p{3cm} | p{3cm} |}
-    \hline
-    ID &  \\ \hline
-    \#1 & Authentication & \pbox{3cm}{user information} & \pbox{3cm}{un/successful token}  \\ \hline
-    \end{tabular}
-\end{center}
-\end{table}
+\subsubsection{Subsystem Operating System}
+N/A
 
-\subsection{Ride Data Analysis}
-This will be information provided to the user after a ride. This information may include average speed of the ride, the duration of the ride, and the distance traveled.
+\subsubsection{Subsystem Software Dependencies}
+The Authentication subsystem depends on the app, and on the firebase authentication API.
 
-\begin{figure}[h!]
-	\centering
- 	\includegraphics[width=0.60\textwidth]{DDS/images/dataAnalysis.png}
- \caption{Example subsystem description diagram}
-\end{figure}
+\subsubsection{Subsystem Programming Languages}
+The front-end is written using React-native and JavaScript 
 
-\subsubsection{Responsibilities}
-Provide users with their ride analysis.
+\subsubsection{Subsystem Data Structures}
+The data from the Authentication subsystem is being sent to the back end as JSON objects
 
-\subsubsection{Subsystem Interfaces}
-Each of the inputs and outputs for the subsystem are defined here.
-\begin {table}[H]
-\caption {Subsystem interfaces} 
-\begin{center}
-    \begin{tabular}{ | p{1cm} | p{6cm} | p{3cm} | p{3cm} |}
-    \hline
-    ID & Description & Inputs & Outputs \\ \hline
-    \#1 & Ride analysis & \pbox{3cm}{refined database data} & \pbox{3cm}{legible ride analysis data}  \\ \hline
-    \end{tabular}
-\end{center}
-\end{table}
+\subsubsection{Subsystem Data Processing}
+N/A
 
+% \subsection{Ride Data Analysis}
+% This sub layer of the control layer will be information provided to the user after a ride. This information may include average speed of the ride, the duration of the ride, and the distance traveled.
 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %  BE SURE TO UPDATE THE IMAGE CAPTION
+% \begin{figure}[h!]
+% 	\centering
+%  	\includegraphics[width=0.60\textwidth]{images/subsystem} % Image
+%  \caption{Example subsystem description diagram} % Caption
+% \end{figure}
+
+% \subsubsection{Subsystem Hardware}
+% N/A
+
+% \subsubsection{Subsystem Operating System}
+% This feature is within the controller app, so it runs on Android and IOS
+
+% \subsubsection{Subsystem Software Dependencies}
+% The Ride Data Analysis subsystem depends on the controller app, and on firebase NoSQL database.
+
+% \subsubsection{Subsystem Programming Languages}
+% React and JavaScript 
+
+% \subsubsection{Subsystem Data Structures}
+% The data from the Ride Data Analysis subsystem is received from the back-end as JSON objects
+
+% \subsubsection{Subsystem Data Processing}
+% N/A
+
+% \subsection{Ride Data Analysis}
+% This sub layer of the control layer will be information provided to the user after a ride. This information may include average speed of the ride, the duration of the ride, and the distance traveled.
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %  BE SURE TO UPDATE THE IMAGE CAPTION
+% \begin{figure}[h!]
+% 	\centering
+%  	\includegraphics[width=0.60\textwidth]{images/subsystem} % Image
+%  \caption{Example subsystem description diagram} % Caption
+% \end{figure}
+
+% \subsubsection{Subsystem Hardware}
+% N/A
+
+% \subsubsection{Subsystem Operating System}
+% This feature is within the controller app, so it runs on Android and IOS
+
+% \subsubsection{Subsystem Software Dependencies}
+% The Ride Data Analysis subsystem depends on the controller app, and on firebase NoSQL database.
+
+% \subsubsection{Subsystem Programming Languages}
+% React and JavaScript 
+
+% \subsubsection{Subsystem Data Structures}
+% The data from the Ride Data Analysis subsystem is received from the back-end as JSON objects
+
+% \subsubsection{Subsystem Data Processing}
+% N/A
